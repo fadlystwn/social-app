@@ -12,7 +12,11 @@ const CardList: FC<CardListProps> = ({ items }) => {
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
       {items.map((item: User) => (
         <Link href={`/users/${item.id}`}>
-          <Card key={item.id} name={item.name} company={item.company.name} />
+          <Card key={item.id}
+            name={item.name}
+            company={item.company.name}
+            username={item.username}
+          />
         </Link>
       ))}
     </div>

@@ -3,13 +3,12 @@ import Card from '@/components/Card';
 import { fetchData } from '@/utils/fetchData';
 import { User } from '@/types/User';
 
-export default async function Page() {
+export default async function UserPage() {
   const data = await fetchData('https://jsonplaceholder.typicode.com/users')
 
   return (
     <div data-testid="user">
       <h1 className="text-2xl">Home</h1>
-      return (
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         {data && data.map((item: User) => (
           <Link key={item.id} href={`/users/${item.id}`}>
@@ -21,7 +20,6 @@ export default async function Page() {
           </Link>
         ))}
       </div>
-      );
     </div>
   )
 }
