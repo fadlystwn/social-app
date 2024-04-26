@@ -1,31 +1,33 @@
-"use client"
-import { useEffect, useState } from "react";
-import PostList from "@/components/PostList";
-import { Post } from "@/types/Post";
-import { fetchData } from "@/utils/fetchData";
+import PostList from "@/app/ui/PostList";
+import Tab from "@/components/Tab";
+import AlbumList from "@/app/ui/AlbumList";
+import UserProfile from "@/app/ui/UserProfile";
 
 export default function UserDetails({ params }: { params: { user_id: string } }) {
-  const url = `https://jsonplaceholder.typicode.com/users/${params.user_id}/posts`
-  const [posts, setPosts] = useState<Post[]>([])
 
-  const fetchPosts = async () => {
-    try {
-      const data = await fetchData(url)
-      setPosts(data)
+  const tabData = [
+    {
+      id: 1,
+      label: "Feeds",
+      content: <PostList />,
+    },
+    {
+      id: 2,
+      label: "Your Posts",
+      content: <PostList params={params.user_id} />,
+    },
+    {
+      id: 3,
+      label: "Albums",
+      content: <AlbumList params={params.user_id} />,
+    },
 
-    } catch (err) {
-    }
-  }
-
-  useEffect(() => {
-    fetchPosts()
-  }, [])
+  ];
 
   return (
     <div>
-      <h1>User Detail hello</h1>
-      <PostList posts={posts} />
-    </div>
-  )
-
+      <UserProfile params={params.user_id} />
+      <Tab tabs={tabData} />
+    </div >
+  );
 }

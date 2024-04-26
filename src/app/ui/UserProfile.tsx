@@ -4,7 +4,7 @@ import { fetchData } from '@/utils/fetchData';
 import Profile from '@/components/Profile';
 
 const UserProfile = ({ params }: { params: string }) => {
-  console.log(params)
+
   const profileUrl = `https://jsonplaceholder.typicode.com/users/${params}`;
   const [profile, setProfile] = useState<Profile | null>(null);
 

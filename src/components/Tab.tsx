@@ -21,8 +21,7 @@ const Tab: FC<TabProps> = ({ tabs }) => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`${activeTab === tab.id ? 'border-indigo-500' : 'border-transparent'
-              } text-gray-800 font-medium py-4 px-6 inline-flex`}
+            className={`${activeTab !== tab.id ? 'text-bold' : 'text-blue-500'}  py-2 px-4 block hover:text-blue-800 focus:outline-none`}
           >
             {tab.label}
           </button>

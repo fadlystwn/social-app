@@ -1,41 +1,36 @@
 'use client'
-import Link from 'next/link';
-import Card from '@/components/Card';
-import { fetchData } from '@/utils/fetchData';
-import { User } from '@/types/User';
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
+import UserList from '@/app/ui/UserList';
+import Modal from '@/components/Modal';
+import AddUser from '@/app/ui/AddUser';
 export default function UserPage() {
-  const url = 'https://jsonplaceholder.typicode.com/users'
-  const [users, setUsers] = useState<User[]>([])
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const fetchUsers = async () => {
-    try {
-      const data = await fetchData(url)
-      setUsers(data)
+  const openModal = () => {
+    setModalOpen(true);
+  };
 
-    } catch (err) {
-    }
-  }
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
-  useEffect(() => {
-    fetchUsers()
-  }, [])
 
   return (
     <div data-testid="user">
       <h1 className="text-2xl">Home</h1>
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        {users && users.map((item: User) => (
-          <Link key={item.id} href={`/users/${item.id}`}>
-            <Card key={item.id}
-              name={item.name}
-              company={item.company.name}
-              username={item.username}
-            />
-          </Link>
-        ))}
+      <div className='text-right my-3'>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={openModal}
+        >
+          ADD USER
+        </button>
+        <Modal isOpen={modalOpen} onClose={closeModal}>
+          <AddUser />
+        </Modal>
       </div>
+      <UserList />
+
     </div>
   )
 }
