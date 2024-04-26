@@ -12,19 +12,19 @@ const PostList = ({ params }: { params?: string }) => {
 
   const [posts, setPosts] = useState<Post[]>([]);
 
-  const fetchPost = async () => {
-    try {
-      const hasParamsData = params ? fetchData(PostsUrl) : fetchData(FeedsUrl);
-      const data = await hasParamsData;
-      setPosts(data);
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const hasParamsData = params ? fetchData(PostsUrl) : fetchData(FeedsUrl);
+        const data = await hasParamsData;
+        setPosts(data);
+      } catch (err) {
+        console.log(err)
+      }
+    }
     fetchPost();
-  }, [])
+  }, [setPosts, PostsUrl, FeedsUrl, params])
 
   return (
     <div className="container mx-auto py-8">

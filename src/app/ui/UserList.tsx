@@ -8,18 +8,18 @@ export default function UserList() {
   const url = 'https://jsonplaceholder.typicode.com/users'
   const [users, setUsers] = useState<User[]>([])
 
-  const fetchUsers = async () => {
-    try {
-      const data = await fetchData(url)
-      setUsers(data)
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await fetchData(url)
+        setUsers(data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
     fetchUsers()
-  }, [])
+  }, [setUsers, url])
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">

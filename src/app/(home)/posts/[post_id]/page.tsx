@@ -9,18 +9,18 @@ const PostDetails = ({ params }: { params: { post_id: string } }) => {
   const PostsUrl = `https://jsonplaceholder.typicode.com/posts/${params.post_id}`;
   const [post, setPost] = useState({} as Post)
 
-  const fetchComment = async () => {
-    try {
-      const data = await fetchData(PostsUrl)
-      setPost(data);
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   useEffect(() => {
+
+    const fetchComment = async () => {
+      try {
+        const data = await fetchData(PostsUrl)
+        setPost(data);
+      } catch (err) {
+        console.log(err)
+      }
+    }
     fetchComment();
-  }, [])
+  }, [setPost, PostsUrl, params.post_id])
 
   return (
     <div className="container mx-auto py-8">

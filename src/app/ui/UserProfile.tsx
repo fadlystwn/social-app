@@ -8,18 +8,18 @@ const UserProfile = ({ params }: { params: string }) => {
   const profileUrl = `https://jsonplaceholder.typicode.com/users/${params}`;
   const [profile, setProfile] = useState<Profile | null>(null);
 
-  const fetchProfile = async () => {
-    try {
-      const data = await fetchData(profileUrl)
-      setProfile(data);
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   useEffect(() => {
+
+    const fetchProfile = async () => {
+      try {
+        const data = await fetchData(profileUrl)
+        setProfile(data);
+      } catch (err) {
+        console.log(err)
+      }
+    }
     fetchProfile();
-  }, [])
+  }, [setProfile, profileUrl, params])
   return (
     <Profile name={profile?.name || ''} username={profile?.username || ''} />
 

@@ -13,18 +13,18 @@ const AlbumList = ({ params }: { params: string }) => {
   const albumUrl = `https://jsonplaceholder.typicode.com/users/${params}/albums`;
   const [albums, setAlbums] = useState<Album[]>([]);
 
-  const fetchAlbums = async () => {
-    try {
-      const data = await fetchData(albumUrl)
-      setAlbums(data);
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   useEffect(() => {
+    const fetchAlbums = async () => {
+      try {
+        const data = await fetchData(albumUrl)
+        setAlbums(data);
+      } catch (err) {
+        console.log(err)
+      }
+    }
     fetchAlbums();
-  }, [])
+  }, [setAlbums, albumUrl, params])
 
   return (
     <>
