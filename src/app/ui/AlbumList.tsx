@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { fetchData } from '@/utils/fetchData';
 import Link from 'next/link';
 
@@ -27,16 +27,20 @@ const AlbumList = ({ params }: { params: string }) => {
   }, [])
 
   return (
-    <div className="grid grid-cols-4 gap-4">
-      {/* Map through albumImages array and render each image */}
-      {albums.map((item) => (
-        <Link key={item.id} href={`/albums/${item.id}`}>
-          <div className="bg-white shadow-md rounded-lg overflow-hidden h-64">
-          </div>
-          <p className=''>{item.title}</p>
-        </Link>
-      ))}
-    </div>
+    <>
+      <h1 className="text-2xl font-bold mb-4">List of Albums</h1>
+      <div className="grid grid-cols-4 gap-4">
+        <Suspense fallback="Loading..">
+          {albums.map((item) => (
+            <Link key={item.id} href={`/albums/${item.id}`}>
+              <div className="bg-white shadow-md rounded-lg overflow-hidden h-64">
+              </div>
+              <p className=''>{item.title}</p>
+            </Link>
+          ))}
+        </Suspense>
+      </div>
+    </>
   );
 }
 
